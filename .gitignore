@@ -1,0 +1,34 @@
+# Godot-specific files and directories
+*.import/
+*.godot/
+*.mono/
+.import/
+.export/
+.navigation/
+.cask/
+
+# General files and directories to ignore
+*.log
+*.tmp
+*.bak
+*.old
+*.orig
+*.rej
+*.swo
+*.swp
+*.DS_Store
+*.vscode/
+.idea/
+.build/
+bin/
+*.exe
+*.dll
+*.so
+*.dylib
+*.class
+*.pyc
+*.pyo
+
+# OS-generated files
+.DS_Store
+Thumbs.db

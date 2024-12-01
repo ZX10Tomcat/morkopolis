@@ -1,0 +1,186 @@
+[gd_scene load_steps=24 format=3 uid="uid://dwc5sqdkp27tp"]
+
+[ext_resource type="Script" path="res://Scripts/board.gd" id="1_hy1d6"]
+[ext_resource type="Script" path="res://Scripts/player_1.gd" id="1_kd2re"]
+[ext_resource type="Texture2D" uid="uid://dv2ex62ksd6b8" path="res://Assets/card.png" id="2_8t8ab"]
+[ext_resource type="PackedScene" uid="uid://3ula3lo5o505" path="res://Scenes/FloorButton.tscn" id="3_tqopi"]
+
+[sub_resource type="MeshLibrary" id="MeshLibrary_77yxs"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_em8oi"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_ta7m4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qcx54"]
+
+[sub_resource type="Environment" id="Environment_lj4my"]
+ambient_light_color = Color(0.964742, 0.964742, 0.964742, 1)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_smwlx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bwfll"]
+metallic_specular = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1b4a"]
+render_priority = 1
+albedo_color = Color(0.568627, 1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7s2c1"]
+
+[sub_resource type="Skin" id="Skin_l0bsn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7woqw"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_hfub0"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yuygj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_04xfn"]
+radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ymri"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kg41i"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_pg4t6"]
+size = Vector2(1, 1.75)
+
+[sub_resource type="Skin" id="Skin_apjxj"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_mthly"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[node name="Board" type="Node3D"]
+transform = Transform3D(1.19249e-08, 0, 1, 0, 1, 0, -1, 0, 1.19249e-08, -1, 0, 0)
+script = ExtResource("1_hy1d6")
+
+[node name="GridMap" type="GridMap" parent="."]
+visible = false
+mesh_library = SubResource("MeshLibrary_77yxs")
+physics_material = SubResource("PhysicsMaterial_em8oi")
+cell_octant_size = 64
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GridMap"]
+visible = false
+mesh = SubResource("QuadMesh_ta7m4")
+surface_material_override/0 = SubResource("StandardMaterial3D_qcx54")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.367713, 0.473475, 0.80038, -0.710776, -0.411896, 0.570209, 0.599654, -0.778565, 0.185075, -6.19358, 62, -21.7169)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lj4my")
+camera_attributes = SubResource("CameraAttributesPractical_smwlx")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(100, 1, 100)
+material = SubResource("StandardMaterial3D_bwfll")
+
+[node name="Player1" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 2, 0)
+script = ExtResource("1_kd2re")
+
+[node name="BodyMesh" type="MeshInstance3D" parent="Player1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_b1b4a")
+mesh = SubResource("CylinderMesh_7s2c1")
+skin = SubResource("Skin_l0bsn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player1/BodyMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+material_override = SubResource("StandardMaterial3D_7woqw")
+mesh = SubResource("SphereMesh_hfub0")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Player1/BodyMesh"]
+transform = Transform3D(-0.18, 0.0869333, 0.0301443, -0.00613333, 0.00602886, -0.448973, -0.69711, -0.0225, -0.00383334, 0.448085, 1.15445, -0.0583787)
+mesh = SubResource("CapsuleMesh_yuygj")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player1"]
+shape = SubResource("CapsuleShape3D_04xfn")
+
+[node name="CamOrigin" type="Node3D" parent="Player1"]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -3.36603, 3, -0.366025)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player1/CamOrigin"]
+spring_length = 2.0
+margin = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="Player1/CamOrigin/SpringArm3D"]
+transform = Transform3D(-0.111722, -0.0185164, -0.993567, -0.0828593, 0.996518, -0.00925424, 0.990279, 0.0812923, -0.112867, 0.0606117, 0, -0.106446)
+current = true
+fov = 97.5
+
+[node name="Wall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 4, 0)
+material_override = SubResource("StandardMaterial3D_0ymri")
+size = Vector3(1, 20, 20)
+material = SubResource("StandardMaterial3D_kg41i")
+
+[node name="Label3D" type="Label3D" parent="Wall"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 6, 0)
+text = "Procrastinators UNITED!
+
+...tomorrow"
+font_size = 300
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(5.6, 0, 0, 0, 1, 0, 0, 0, 6.6, 0, 0, 0)
+use_collision = true
+radius = 3.0
+sides = 40
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 52, 3.93403e-07)
+current = true
+fov = 89.5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.76, 0, 0, 0, -1.1365e-07, -1, 0, 2.6, -4.37114e-08, 0, 1.6, 22)
+mesh = SubResource("QuadMesh_pg4t6")
+skin = SubResource("Skin_apjxj")
+
+[node name="Card1" type="Sprite3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, 0, 1, 25)
+visible = false
+texture = ExtResource("2_8t8ab")
+
+[node name="FloorButton" parent="." instance=ExtResource("3_tqopi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -42)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(7.425, 0, 5.29396e-23, 0, -5.81606e-07, 1.1, 8.52652e-15, -13.3056, -4.80825e-08, -6.03, 0.8, -41.6611)
+visible = false
+texture = SubResource("ViewportTexture_mthly")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_left = 487.0
+offset_top = 39.0
+offset_right = 527.0
+offset_bottom = 79.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(75, 31)
+render_target_update_mode = 4
+
+[node name="LineEdit" type="LineEdit" parent="SubViewportContainer/SubViewport"]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = -1.9375
+grow_horizontal = 2
+grow_vertical = 2
+text = "40"
+alignment = 1
+
+[connection signal="input_event" from="FloorButton" to="FloorButton" method="_on_input_event"]
+[connection signal="text_changed" from="SubViewportContainer/SubViewport/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_submitted" from="SubViewportContainer/SubViewport/LineEdit" to="." method="_on_line_edit_text_submitted"]
+
+[editable path="FloorButton"]

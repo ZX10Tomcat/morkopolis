@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bl5og4prjrtiy"]
+
+[ext_resource type="Texture2D" uid="uid://dv2ex62ksd6b8" path="res://Assets/card.png" id="1_0yauw"]
+[ext_resource type="Script" path="res://Scripts/card.gd" id="1_3qgsq"]
+
+[node name="card" type="Node2D"]
+script = ExtResource("1_3qgsq")
+
+[node name="BaseCardSprite" type="Sprite2D" parent="."]
+position = Vector2(51, 88)
+texture = ExtResource("1_0yauw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

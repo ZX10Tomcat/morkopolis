@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://3ula3lo5o505"]
+
+[ext_resource type="Script" path="res://Scripts/floor_button.gd" id="1_u4e8t"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fjwyd"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jms4g"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3dtp1"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3ge42"]
+
+[sub_resource type="Animation" id="Animation_wt516"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.12, 0)
+
+[sub_resource type="Animation" id="Animation_owghy"]
+resource_name = "pressdown"
+length = 0.2
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.12, 0, 0.2, 1, 0, 0.024, 0)
+
+[sub_resource type="Animation" id="Animation_m14ob"]
+resource_name = "pressup"
+length = 0.2
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.024, 0, 0.2, 1, 0, 0.12, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xud23"]
+_data = {
+"RESET": SubResource("Animation_wt516"),
+"pressdown": SubResource("Animation_owghy"),
+"pressup": SubResource("Animation_m14ob")
+}
+
+[node name="FloorButton" type="StaticBody3D"]
+script = ExtResource("1_u4e8t")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(5.3, 0, 0, 0, 0.53, 0, 0, 0, 5.3, 0, -0.0897625, 0)
+mesh = SubResource("BoxMesh_fjwyd")
+
+[node name="Button" type="MeshInstance3D" parent="."]
+transform = Transform3D(5.3, 0, 0, 0, -0.2544, 0, 0, 0, 5.3, 0, 0.12, 0)
+mesh = SubResource("CylinderMesh_jms4g")
+surface_material_override/0 = SubResource("StandardMaterial3D_3dtp1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(4.6, 0, 0, 0, 1, 0, 0, 0, 5.4, 0, 0.225588, 0)
+shape = SubResource("BoxShape3D_3ge42")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xud23")
+}
