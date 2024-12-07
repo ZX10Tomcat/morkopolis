@@ -3,12 +3,18 @@ extends Node3D
 @onready var floor_button: StaticBody3D = $FloorButton
 @onready var card_1: Sprite3D = $Card1
 
+@onready var dice: RigidBody3D = $Dice
+@onready var dice_2: RigidBody3D = $Dice2
+
 @onready var subviewport_container = $SubViewportContainer 
 @onready var subviewport = $SubViewportContainer/SubViewport 
 @onready var text_input: LineEdit = $SubViewportContainer/SubViewport/LineEdit
+@onready var score_label: Label3D = $Score/ScoreLabel
 
 var cards = []
 var card_count = 40
+
+var result = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -34,11 +40,19 @@ func setup_text_input():
 		#var local_position = subviewport_container.get_global_transform.xform_inv(global_position)
 		#subviewport.input(local_position)
 
-
+func _input(event: InputEvent) -> void: 
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): 
+		result = 0
+		score_label.text = str(result)
+		dice.roll_dice()
+		dice_2.roll_dice()
+		
+		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+				
 				
 				
 func remove_all_cards(): 
@@ -82,3 +96,10 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 	print(new_text)
 	if new_text.is_valid_int():
 		card_count = new_text.to_int()
+
+func _on_dice_roll_finished(number: Variant) -> void:	
+	result = result + number	
+	score_label.text = str(result)
+func _on_dice_2_roll_finished(number: Variant) -> void:	
+	result = result + number	
+	score_label.text = str(result)
