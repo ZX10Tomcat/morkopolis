@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://dwc5sqdkp27tp"]
+[gd_scene load_steps=26 format=3 uid="uid://dwc5sqdkp27tp"]
 
-[ext_resource type="Script" path="res://Scripts/board.gd" id="1_hy1d6"]
-[ext_resource type="Script" path="res://Scripts/player_1.gd" id="1_kd2re"]
-[ext_resource type="Texture2D" uid="uid://dv2ex62ksd6b8" path="res://Assets/card.png" id="2_8t8ab"]
-[ext_resource type="PackedScene" uid="uid://3ula3lo5o505" path="res://Scenes/FloorButton.tscn" id="3_tqopi"]
-[ext_resource type="PackedScene" uid="uid://byy6u76wmhyoc" path="res://Scenes/dice.tscn" id="5_dg7x6"]
+[ext_resource type="Script" path="res://Scripts/board.gd" id="1_fvhk5"]
+[ext_resource type="Script" path="res://Scripts/player_1.gd" id="2_yyfl2"]
+[ext_resource type="Texture2D" uid="uid://dv2ex62ksd6b8" path="res://Assets/card.png" id="3_ww7u4"]
+[ext_resource type="PackedScene" uid="uid://3ula3lo5o505" path="res://Scenes/FloorButton.tscn" id="4_wdk7d"]
+[ext_resource type="PackedScene" uid="uid://byy6u76wmhyoc" path="res://Scenes/dice.tscn" id="5_u85wb"]
+[ext_resource type="Texture2D" uid="uid://wc1xbppt8utc" path="res://Assets/central_image.png" id="6_ov6ui"]
 
 [sub_resource type="MeshLibrary" id="MeshLibrary_77yxs"]
 
@@ -24,7 +25,7 @@ metallic_specular = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1b4a"]
 render_priority = 1
-albedo_color = Color(0.568627, 1, 1, 1)
+albedo_color = Color(0.898039, 0.027451, 1, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_7s2c1"]
 
@@ -54,7 +55,11 @@ size = Vector2(1, 1.75)
 
 [node name="Board" type="Node3D"]
 transform = Transform3D(1.19249e-08, 0, 1, 0, 1, 0, -1, 0, 1.19249e-08, -1, 0, 0)
-script = ExtResource("1_hy1d6")
+script = ExtResource("1_fvhk5")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(2.42, 0, 0, 0, -1.07897e-07, 3.5, 0, -2.4684, -1.5299e-07, 0, 0.7, 0)
+texture = ExtResource("6_ov6ui")
 
 [node name="GridMap" type="GridMap" parent="."]
 visible = false
@@ -81,7 +86,7 @@ material = SubResource("StandardMaterial3D_bwfll")
 
 [node name="Player1" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 2, 0)
-script = ExtResource("1_kd2re")
+script = ExtResource("2_yyfl2")
 
 [node name="BodyMesh" type="MeshInstance3D" parent="Player1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -149,9 +154,9 @@ skin = SubResource("Skin_apjxj")
 [node name="Card1" type="Sprite3D" parent="."]
 transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, 0, 1, 25)
 visible = false
-texture = ExtResource("2_8t8ab")
+texture = ExtResource("3_ww7u4")
 
-[node name="FloorButton" parent="." instance=ExtResource("3_tqopi")]
+[node name="FloorButton" parent="." instance=ExtResource("4_wdk7d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -42)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
@@ -177,11 +182,11 @@ grow_vertical = 2
 text = "40"
 alignment = 1
 
-[node name="Dice" parent="." instance=ExtResource("5_dg7x6")]
+[node name="Dice" parent="." instance=ExtResource("5_u85wb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 17, 0)
 freeze = true
 
-[node name="Dice2" parent="." instance=ExtResource("5_dg7x6")]
+[node name="Dice2" parent="." instance=ExtResource("5_u85wb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 17, 0)
 freeze = true
 
@@ -196,6 +201,8 @@ text = "SCORE"
 font_size = 54
 
 [connection signal="input_event" from="FloorButton" to="FloorButton" method="_on_input_event"]
+[connection signal="text_changed" from="SubViewportContainer/SubViewport/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_submitted" from="SubViewportContainer/SubViewport/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="roll_finished" from="Dice" to="." method="_on_dice_roll_finished"]
 [connection signal="roll_finished" from="Dice2" to="." method="_on_dice_2_roll_finished"]
 

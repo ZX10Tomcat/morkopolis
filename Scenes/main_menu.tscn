@@ -1,0 +1,169 @@
+[gd_scene load_steps=9 format=3 uid="uid://bu2a55jgn02xl"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_5onmq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v785e"]
+bg_color = Color(0.698435, 0.899612, 0.919781, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_msdmv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f0t6r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hb2j"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 11
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yykor"]
+bg_color = Color(0.695503, 0.695503, 0.695503, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 11
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqj8b"]
+bg_color = Color(0.501407, 0.501406, 0.501406, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 11
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="Theme" id="Theme_2jiin"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5onmq")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v785e")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -213.0
+offset_top = -236.0
+offset_right = 213.0
+offset_bottom = -122.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.662068, 1, 0.634106, 1)
+theme_override_colors/font_shadow_color = Color(0.0142752, 0.0142752, 0.0142752, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = SubResource("FontVariation_msdmv")
+theme_override_font_sizes/font_size = 50
+text = "MORKOPOLIS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 449.0
+offset_top = 200.0
+offset_right = 543.0
+offset_bottom = 223.0
+theme_override_colors/font_color = Color(0.000693898, 0.000693898, 0.000693898, 1)
+text = "Players (2-6)"
+
+[node name="Label3" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 601.0
+offset_top = 200.0
+offset_right = 702.0
+offset_bottom = 223.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Cards (20-40)"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.5
+offset_top = -34.5
+offset_right = 132.5
+offset_bottom = 102.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="StartGame" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.00566115, 0.00566115, 0.00566115, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_f0t6r")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_1hb2j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yykor")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tqj8b")
+theme_override_styles/normal = SubResource("StyleBoxFlat_1hb2j")
+text = "Start game
+"
+
+[node name="ExitGame" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.00566115, 0.00566115, 0.00566115, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_f0t6r")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_1hb2j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yykor")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tqj8b")
+theme_override_styles/normal = SubResource("StyleBoxFlat_1hb2j")
+text = "Exit game
+"
+
+[node name="PlayersLineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+offset_left = 440.0
+offset_top = 230.0
+offset_right = 551.0
+offset_bottom = 261.0
+theme = SubResource("Theme_2jiin")
+text = "2"
+alignment = 1
+
+[node name="CardsLineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+offset_left = 595.0
+offset_top = 230.0
+offset_right = 706.0
+offset_bottom = 261.0
+text = "40"
+alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/ExitGame" to="." method="_on_exit_game_pressed"]
+[connection signal="focus_exited" from="PlayersLineEdit" to="." method="_on_players_line_edit_focus_exited"]
+[connection signal="focus_exited" from="CardsLineEdit" to="." method="_on_cards_line_edit_focus_exited"]
