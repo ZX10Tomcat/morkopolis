@@ -30,6 +30,7 @@ func _on_exit_game_pressed() -> void:
 
 func _on_cards_line_edit_focus_exited() -> void:
 	var num_cards = cards_line_edit.text.to_int() 
+	print("Number of Cards Main Menu: ", cards_line_edit.text.to_int()) 	
 	if num_cards < 20: 
 		num_cards = 20 
 	elif num_cards > 40: 

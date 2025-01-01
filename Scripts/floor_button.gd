@@ -37,8 +37,8 @@ func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, n
 			if event.pressed: 
 				print("pressed") 
 				anim.play("pressdown")
-				board.remove_all_cards()
-				board.create_cards()
+				#board.remove_all_cards()
+				board.roll_dices()
 				
 			else: 
 				print("released")

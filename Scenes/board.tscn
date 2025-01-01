@@ -1,11 +1,13 @@
-[gd_scene load_steps=26 format=3 uid="uid://dwc5sqdkp27tp"]
+[gd_scene load_steps=28 format=3 uid="uid://dwc5sqdkp27tp"]
 
 [ext_resource type="Script" path="res://Scripts/board.gd" id="1_fvhk5"]
 [ext_resource type="Script" path="res://Scripts/player_1.gd" id="2_yyfl2"]
 [ext_resource type="Texture2D" uid="uid://dv2ex62ksd6b8" path="res://Assets/card.png" id="3_ww7u4"]
+[ext_resource type="Texture2D" uid="uid://4e7yoeixbxir" path="res://Assets/procrastinators.png" id="4_uj7lh"]
 [ext_resource type="PackedScene" uid="uid://3ula3lo5o505" path="res://Scenes/FloorButton.tscn" id="4_wdk7d"]
 [ext_resource type="PackedScene" uid="uid://byy6u76wmhyoc" path="res://Scenes/dice.tscn" id="5_u85wb"]
 [ext_resource type="Texture2D" uid="uid://wc1xbppt8utc" path="res://Assets/central_image.png" id="6_ov6ui"]
+[ext_resource type="Script" path="res://Scenes/main_menu_button.gd" id="7_fw5g2"]
 
 [sub_resource type="MeshLibrary" id="MeshLibrary_77yxs"]
 
@@ -81,53 +83,59 @@ camera_attributes = SubResource("CameraAttributesPractical_smwlx")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 use_collision = true
-size = Vector3(100, 1, 100)
+size = Vector3(140, 1, 100)
 material = SubResource("StandardMaterial3D_bwfll")
 
-[node name="Player1" type="CharacterBody3D" parent="."]
+[node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 2, 0)
 script = ExtResource("2_yyfl2")
 
-[node name="BodyMesh" type="MeshInstance3D" parent="Player1"]
+[node name="BodyMesh" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("StandardMaterial3D_b1b4a")
 mesh = SubResource("CylinderMesh_7s2c1")
 skin = SubResource("Skin_l0bsn")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player1/BodyMesh"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/BodyMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 material_override = SubResource("StandardMaterial3D_7woqw")
 mesh = SubResource("SphereMesh_hfub0")
 skeleton = NodePath("../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Player1/BodyMesh"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Player/BodyMesh"]
 transform = Transform3D(-0.18, 0.0869333, 0.0301443, -0.00613333, 0.00602886, -0.448973, -0.69711, -0.0225, -0.00383334, 0.448085, 1.15445, -0.0583787)
 mesh = SubResource("CapsuleMesh_yuygj")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_04xfn")
 
-[node name="CamOrigin" type="Node3D" parent="Player1"]
+[node name="CamOrigin" type="Node3D" parent="Player"]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -3.36603, 3, -0.366025)
 
-[node name="SpringArm3D" type="SpringArm3D" parent="Player1/CamOrigin"]
+[node name="SpringArm3D" type="SpringArm3D" parent="Player/CamOrigin"]
 spring_length = 2.0
 margin = 0.5
 
-[node name="Camera3D" type="Camera3D" parent="Player1/CamOrigin/SpringArm3D"]
+[node name="Camera3D" type="Camera3D" parent="Player/CamOrigin/SpringArm3D"]
 transform = Transform3D(-0.111722, -0.0185164, -0.993567, -0.0828593, 0.996518, -0.00925424, 0.990279, 0.0812923, -0.112867, 0.0606117, 0, -0.106446)
 current = true
 fov = 97.5
 
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(-4.05248e-08, 0.165644, -0.579556, 1.81013e-08, 0.618193, 0.155291, 1.6, -1.97529e-09, -2.28912e-08, 65.2487, 7.24625, -0.799998)
+texture = ExtResource("4_uj7lh")
+
 [node name="Wall" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 4, 0)
+transform = Transform3D(0.772741, 0.165644, 0, -0.207055, 0.618193, 0, 0, -4.44089e-16, 0.8, 65.8282, 7.09096, -0.8)
+visible = false
 material_override = SubResource("StandardMaterial3D_0ymri")
-size = Vector3(1, 20, 20)
+size = Vector3(1, 10, 20)
 material = SubResource("StandardMaterial3D_kg41i")
 
 [node name="Label3D" type="Label3D" parent="Wall"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 6, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, -1, 0)
+visible = false
 text = "Procrastinators UNITED!
 
 ...tomorrow"
@@ -157,9 +165,14 @@ visible = false
 texture = ExtResource("3_ww7u4")
 
 [node name="FloorButton" parent="." instance=ExtResource("4_wdk7d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -42)
+transform = Transform3D(-6.11959e-08, 0, 1.56, 0, 1, 0, -1.4, 0, -6.81898e-08, 52, 1, 42.6)
+
+[node name="MainMenuButton" parent="." instance=ExtResource("4_wdk7d")]
+transform = Transform3D(-6.11959e-08, 0, 1.56, 0, 1, 0, -1.4, 0, -6.81898e-08, -48, 1, -42.6)
+script = ExtResource("7_fw5g2")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+visible = false
 offset_left = 487.0
 offset_top = 39.0
 offset_right = 527.0
@@ -168,7 +181,7 @@ offset_bottom = 79.0
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
 size = Vector2i(75, 31)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="LineEdit" type="LineEdit" parent="SubViewportContainer/SubViewport"]
 clip_contents = true
@@ -190,20 +203,36 @@ freeze = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 17, 0)
 freeze = true
 
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(2.376, 0, 0, 0, 0, 2.16, 0, -1.8, 0, 49.552, 1, -44.9)
+modulate = Color(0, 0, 0, 1)
+text = "MOVEMENT"
+font_size = 200
+
 [node name="Score" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -42)
-size = Vector3(12, 2, 5)
+transform = Transform3D(0.8, 0, 0, 0, 1, 0, 0, 0, 1, 45.7, 0, -39)
+size = Vector3(9, 2, 5)
 
 [node name="ScoreLabel" type="Label3D" parent="Score"]
 transform = Transform3D(10, 0, 0, 0, -4.37114e-07, 10, 0, -10, -4.37114e-07, 0, 2, 1)
 modulate = Color(0, 0, 0, 1)
-text = "SCORE"
+font_size = 54
+
+[node name="Score2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 1, 0, 0, 0, 1, 54.5, 0, -39)
+size = Vector3(9, 2, 5)
+
+[node name="ScoreLabel" type="Label3D" parent="Score2"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, 10, 0, -10, -4.37114e-07, 0, 2, 1)
+modulate = Color(0, 0, 0, 1)
 font_size = 54
 
 [connection signal="input_event" from="FloorButton" to="FloorButton" method="_on_input_event"]
+[connection signal="input_event" from="MainMenuButton" to="MainMenuButton" method="_on_input_event"]
 [connection signal="text_changed" from="SubViewportContainer/SubViewport/LineEdit" to="." method="_on_line_edit_text_changed"]
 [connection signal="text_submitted" from="SubViewportContainer/SubViewport/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="roll_finished" from="Dice" to="." method="_on_dice_roll_finished"]
 [connection signal="roll_finished" from="Dice2" to="." method="_on_dice_2_roll_finished"]
 
 [editable path="FloorButton"]
+[editable path="MainMenuButton"]

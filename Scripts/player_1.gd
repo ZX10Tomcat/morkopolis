@@ -14,13 +14,13 @@ func _ready() -> void:
 	pass
 	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		#rotate_y(deg_to_rad(-event.relative.x * sens))
-		rotate(Vector3.UP, deg_to_rad(event.relative.x * sens))
-		#rotate(Vector3.RIGHT, deg_to_rad(event.relative.y * sens))
-		#pivot.rotate_x(deg_to_rad(-event.relative.y * sens))
-		pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+#func _input(event: InputEvent) -> void:
+	#if event is InputEventMouseMotion:
+		##rotate_y(deg_to_rad(-event.relative.x * sens))
+		#rotate(Vector3.UP, deg_to_rad(event.relative.x * sens))
+		##rotate(Vector3.RIGHT, deg_to_rad(event.relative.y * sens))
+		##pivot.rotate_x(deg_to_rad(-event.relative.y * sens))
+		#pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
 func _physics_process(delta: float) -> void:
 	
